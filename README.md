@@ -46,7 +46,7 @@ my-readme-generator/
 
 ## Live Demo
 
-Check out the [live demo](https://github.com/anshkabra2012) on GitHub (demo coming soon...).
+Check out the [live demo](readmegen.itsansh.xyz)!
 
 ## License
 
