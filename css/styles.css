@@ -1,0 +1,26 @@
+body {
+    font-family: 'JetBrains Mono', monospace;
+  }
+  
+  .bg-dark-gradient {
+    background: linear-gradient(135deg, #001011 0%, #093A3E 100%);
+  }
+  .bg-verdigris {
+    background-color: #3AAFB9;
+  }
+  .bg-electric-blue {
+    background-color: #64E9EE;
+  }
+  .hover\:bg-light-sky-blue:hover {
+    background-color: #97C8E8;
+  }
+  .text-verdigris {
+    color: #3AAFB9;
+  }
+  
+  pre code {
+    display: block;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  

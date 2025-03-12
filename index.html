@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GitHub Stats & README Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/e328bff894.js" crossorigin="anonymous" data-analytics="0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="icon" href="favicons/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
+<link rel="manifest" href="favicons/site.webmanifest">
+</head>
+<body class="bg-dark-gradient text-white min-h-screen relative">
+  <div class="container mx-auto py-8 px-4">
+    <h1 class="text-3xl font-bold text-center mb-6 text-verdigris drop-shadow">
+      <i class="fas fa-rocket mr-2"></i>
+      GitHub Stats & README Generator
+    </h1>
+    <div class="flex flex-col lg:flex-row gap-8">
+      <div class="lg:w-1/2 bg-white/10 rounded p-6 shadow">
+        <form id="generatorForm" class="space-y-4">
+          <div>
+            <label for="username" class="block font-medium mb-1">
+              <i class="fas fa-user mr-1"></i> GitHub Username:
+            </label>
+            <input id="username" type="text" placeholder="your-username" class="w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-electric-blue bg-white/80 text-gray-900" />
+          </div>
+          <div>
+            <h2 class="font-semibold mb-2">
+              <i class="fas fa-chart-line mr-1"></i> GitHub Stats Options
+            </h2>
+            <label class="inline-flex items-center mb-1">
+              <input type="checkbox" id="includeStats" class="mr-2" checked />
+              <span>Include GitHub Stats</span>
+            </label>
+            <div class="mt-2">
+              <label for="statsTheme" class="block mb-1">Select Stats Theme:</label>
+              <select id="statsTheme" class="w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-electric-blue bg-white/80 text-gray-900">
+                <option value="default">Default</option>
+                <option value="radical">Radical</option>
+                <option value="merko">Merko</option>
+                <option value="gruvbox">Gruvbox</option>
+                <option value="tokyonight">Tokyonight</option>
+                <option value="onedark">Onedark</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <h2 class="font-semibold mb-2">
+              <i class="fas fa-fire mr-1"></i> GitHub Streak Stats Options
+            </h2>
+            <label class="inline-flex items-center mb-1">
+              <input type="checkbox" id="includeStreak" class="mr-2" checked />
+              <span>Include GitHub Streak Stats</span>
+            </label>
+            <div class="mt-2">
+              <label for="streakTheme" class="block mb-1">Select Streak Theme:</label>
+              <select id="streakTheme" class="w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-electric-blue bg-white/80 text-gray-900">
+                <option value="default">Default</option>
+                <option value="radical">Radical</option>
+                <option value="merko">Merko</option>
+                <option value="gruvbox">Gruvbox</option>
+                <option value="tokyonight">Tokyonight</option>
+                <option value="onedark">Onedark</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <h2 class="font-semibold mb-2">
+              <i class="fas fa-shield-alt mr-1"></i> Shields.io Badges
+            </h2>
+            <label class="inline-flex items-center mb-1">
+              <input type="checkbox" id="includeFollowers" class="mr-2" checked />
+              <span>Include Followers Badge</span>
+            </label>
+            <label class="inline-flex items-center mb-1">
+              <input type="checkbox" id="includeRepoStars" class="mr-2" />
+              <span>Include Repo Stars Badge (requires repository name)</span>
+            </label>
+            <div id="repoInputDiv" class="mt-2 hidden">
+              <input id="repoName" type="text" placeholder="Enter repository name" class="w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-electric-blue bg-white/80 text-gray-900" />
+            </div>
+            <label class="inline-flex items-center mt-1">
+              <input type="checkbox" id="includeTopLangs" class="mr-2" />
+              <span>Include Top Languages Badge</span>
+            </label>
+          </div>
+        </form>
+        <button id="copyBtn" class="w-full mt-4 bg-electric-blue text-gray-900 font-semibold py-2 rounded hover:bg-light-sky-blue transition">
+          <i class="fas fa-copy mr-1"></i> Copy Markdown to Clipboard
+        </button>
+      </div>
+      <div class="lg:w-1/2 bg-white/10 rounded p-6 shadow">
+        <h2 class="font-bold mb-4 text-verdigris">
+          <i class="fas fa-eye mr-1"></i> Live Preview
+        </h2>
+        <div id="livePreviewContainer"></div>
+        <h2 class="font-bold mt-6 mb-4 text-verdigris">
+          <i class="fas fa-code mr-1"></i> Generated Markdown Code
+        </h2>
+        <pre class="p-4 bg-white/80 rounded overflow-auto text-gray-900">
+          <code id="codeBlock"></code>
+        </pre>
+      </div>
+    </div>
+  </div>
+  <div class="fixed bottom-4 right-4 text-gray-400 text-xs italic opacity-70">
+    <a href="https://github.com/anshkabra2012" target="_blank" class="hover:underline">
+      <i class="fas fa-code mr-1"></i> by Ansh Kabra
+    </a>
+  </div>
+  <script type="text/babel" src="js/app.jsx"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
