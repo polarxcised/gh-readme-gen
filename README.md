@@ -47,7 +47,7 @@ my-readme-generator/
 
 ## Live Demo
 
-Check out the [live demo](readmegen.itsansh.xyz)!
+Check out the [live demo](https://readmegen.itsansh.xyz)!
 
 ## License
 
