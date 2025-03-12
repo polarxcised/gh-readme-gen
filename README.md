@@ -12,7 +12,7 @@ A cool tool for generating dynamic GitHub stats and README markdown snippets tha
 - **Font Awesome Icons**: Because every Web Dev loves cool icons.
 
 ## Folder Structure
-
+```
 my-readme-generator/
 ├── index.html
 ├── css/
@@ -20,6 +20,7 @@ my-readme-generator/
 └── js/
     ├── app.jsx
     └── main.js
+```
 
 ## Getting Started
 
