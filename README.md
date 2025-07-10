@@ -55,7 +55,7 @@ This project is open source and free to use. Modify it, improve it, and share it
 
 ## Contact
 
-- **Ansh Kabra**  
-  [GitHub Profile](https://github.com/anshkabra2012)
+- **polarxcised**  
+  [GitHub Profile](https://github.com/polarxcised)
 
 ---
